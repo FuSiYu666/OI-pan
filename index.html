@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渐变背景卡片</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #1e90ff, #9370db);
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            width: 300px;
+            height: 350px;
+            margin: 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 15px;
+        }
+        
+        .card img {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .buttons button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .buttons button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-container {
+            width: 500px;
+            height: 50px;
+            margin: 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            height: 100%;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .search-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    .settings-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.settings-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.7), rgba(147, 112, 219, 0.7));
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 120px;
+}
+
+.settings-container:hover .settings-dropdown {
+    display: block;
+}
+
+.size-option {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.size-option:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Card size variations */
+.card.small {
+    width: 150px;
+    height: 170px;
+}
+
+.card.small img {
+    width: 80px;
+    height: 80px;
+}
+
+.card.small h2 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.card.small p {
+    font-size: 12px;
+    margin: 3px 0;
+}
+
+.card.small .buttons {
+    gap: 3px;
+}
+
+.card.small .buttons button {
+    padding: 3px 6px;
+    font-size: 12px;
+}
+
+.card.medium {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.card.medium h2 {
+    margin-bottom: 15px;
+}
+
+.card.medium img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+</style>
+</head>
+<body>
+    <div class="settings-container">
+        <button class="settings-button">⚙️</button>
+        <div class="settings-dropdown">
+            <button class="size-option" data-size="small">小尺寸</button>
+            <button class="size-option" data-size="medium">中等尺寸</button>
+            <button class="size-option" data-size="large">大尺寸</button>
+        </div>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索...">
+        <button class="search-button">🔎</button>
+    </div>
+    <div class="card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmZmYiLz4KICAgICAgICA8dGV4dCB4PSI1MCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMCI+Q2FyZCBJbWFnZTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Card Image">
+        <h2 class="big-text">卡片1</h2>
+        <p class="small-text">小文字描述</p>
+        <div class="buttons">
+            <button onclick="window.location.href='https://example.com'">1</button>
+            <button onclick="window.location.href='https://example.com'">2</button>
+            <button onclick="window.location.href='https://example.com'">3</button>
+            <button onclick="window.location.href='https://example.com'">4</button>
+            <button onclick="window.location.href='https://example.com'">5</button>
+        </div>
+    </div>
+    <div class="card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmZmYiLz4KICAgICAgICA8dGV4dCB4PSI1MCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMCI+Q2FyZCBJbWFnZTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Card Image">
+        <h2 class="big-text">卡片2</h2>
+        <p class="small-text">小文字描述</p>
+        <div class="buttons">
+            <button onclick="window.location.href='https://example.com'">1</button>
+            <button onclick="window.location.href='https://example.com'">2</button>
+            <button onclick="window.location.href='https://example.com'">3</button>
+            <button onclick="window.location.href='https://example.com'">4</button>
+            <button onclick="window.location.href='https://example.com'">5</button>
+        </div>
+    </div>
+    <div class="card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmZmYiLz4KICAgICAgICA8dGV4dCB4PSI1MCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMCI+Q2FyZCBJbWFnZTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Card Image">
+        <h2 class="big-text">卡片3</h2>
+        <p class="small-text">小文字描述</p>
+        <div class="buttons">
+            <button onclick="window.location.href='https://example.com'">1</button>
+            <button onclick="window.location.href='https://example.com'">2</button>
+            <button onclick="window.location.href='https://example.com'">3</button>
+            <button onclick="window.location.href='https://example.com'">4</button>
+            <button onclick="window.location.href='https://example.com'">5</button>
+        </div>
+    </div>
+    <div class="card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmZmYiLz4KICAgICAgICA8dGV4dCB4PSI1MCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMCI+Q2FyZCBJbWFnZTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Card Image">
+        <h2 class="big-text">卡片4</h2>
+        <p class="small-text">小文字描述</p>
+        <div class="buttons">
+            <button onclick="window.location.href='https://example.com'">1</button>
+            <button onclick="window.location.href='https://example.com'">2</button>
+            <button onclick="window.location.href='https://example.com'">3</button>
+            <button onclick="window.location.href='https://example.com'">4</button>
+            <button onclick="window.location.href='https://example.com'">5</button>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `translateY(-10px) rotateX(${(y - 100) / 10}deg) rotateY(${(x - 100) / 10}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+            });
+        });
+        
+        // Size adjustment functionality
+        const sizeOptions = document.querySelectorAll('.size-option');
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const cards = document.querySelectorAll('.card');
+                const size = option.dataset.size;
+                
+                cards.forEach(card => {
+                    card.className = 'card';
+                    card.classList.add(size);
+                });
+            });
+        });
+        
+        const searchButton = document.querySelector('.search-button');
+        const searchInput = document.querySelector('.search-input');
+        
+        function handleSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                if(title.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        searchButton.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+        
+        // 修改设置按钮的点击事件
+        const settingsButton = document.querySelector('.settings-button');
+        const settingsDropdown = document.querySelector('.settings-dropdown');
+        
+        settingsButton.addEventListener('click', () => {
+            if(settingsDropdown.style.display === 'block') {
+                settingsDropdown.style.display = 'none';
+            } else {
+                settingsDropdown.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
