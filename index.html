@@ -7,11 +7,11 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
+            padding: 80px 0 0 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
             background: linear-gradient(135deg, #1e90ff, #9370db);
             font-family: Arial, sans-serif;
@@ -71,9 +71,13 @@
         }
         
         .search-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 500px;
             height: 50px;
-            margin: 20px;
+            margin: 0;
             border-radius: 15px;
             background-color: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
@@ -82,6 +86,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 15px;
+            z-index: 99;
         }
         
         .search-input {
@@ -145,6 +150,7 @@
     border-radius: 5px;
     padding: 10px;
     min-width: 120px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .settings-container:hover .settings-dropdown {
@@ -198,12 +204,12 @@
 }
 
 .card.medium {
-    width: 100%;
-    height: 100px;
-    margin: 10px 0;
+    width: 90%;
+    height: auto;
+    margin: 0;
     flex-direction: row;
     justify-content: flex-start;
-    padding: 10px;
+    padding: 15px;
 }
 
 .card.medium h2 {
@@ -288,7 +294,11 @@
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
-                card.style.transform = `translateY(-10px) rotateX(${(y - 100) / 10}deg) rotateY(${(x - 100) / 10}deg)`;
+                if(card.classList.contains('medium')) {
+                    card.style.transform = `translateY(-5px) rotateX(${(y - 100) / 30}deg) rotateY(${(x - 100) / 30}deg)`;
+                } else {
+                    card.style.transform = `translateY(-10px) rotateX(${(y - 100) / 10}deg) rotateY(${(x - 100) / 10}deg)`;
+                }
             });
 
             card.addEventListener('mouseleave', () => {
